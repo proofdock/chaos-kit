@@ -1,6 +1,6 @@
 # Proofdock extension for the Chaos Toolkit
 
-[![Build Status](https://dev.azure.com/proofdockio/chaos/_apis/build/status/chaos-kit/chaos-kit%20-%20production?branchName=master)](https://dev.azure.com/proofdockio/chaos/_build/latest?definitionId=56&branchName=master)
+[![Build Status](https://dev.azure.com/proofdockio/chaos/_apis/build/status/chaos-kit/chaos-kit%20-%20production?branchName=master)](https://dev.azure.com/proofdockio/chaos/_build/latest?definitionId=58&branchName=master)
 [![Python versions](https://img.shields.io/pypi/pyversions/proofdock-chaos-kit.svg)](https://www.python.org/)
 
 This project is a collection of features gathered as an extension to the [Proofdock Chaos Engineering Platform][chaosengineeringplatform] and the [Chaos Toolkit][chaostoolkit].

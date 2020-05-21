@@ -1,0 +1,44 @@
+*.class
+target
+/bin/
+/.settings/
+.project
+.classpath
+build/
+dist/
+
+# Package Files
+*.jar
+*.war
+*.ear
+
+# python
+__pycache__
+.coverage
+coverage.xml
+htmlcov
+junit-test-results.xml
+
+# InteliJ IDE config
+.idea
+hello.iml
+
+# vscode
+.vscode/
+
+# Virtualenv
+# virtualenv.log
+.venv
+venv/
+ENV/
+
+# Chaos Toolkit related
+chaostoolkit.log
+journal.json
+chaosexp/experiment.json
+chaosexp/experiment.yml
+*settings.yml
+
+# setuptools
+*egg-info
+.eggs

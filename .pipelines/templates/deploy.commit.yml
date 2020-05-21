@@ -1,0 +1,13 @@
+# File: template/deploy.commit.yml
+
+steps:
+  - script: |
+      git checkout -b tmp/$(Build.SourceVersion)
+      src_branch_ref=$(Build.SourceBranch)
+      src_branch=${src_branch_ref#*heads/}
+      echo 'checkout source branch: $src_branch'
+      git checkout $src_branch
+      git merge tmp/$(Build.SourceVersion)
+      git branch -d tmp/$(Build.SourceVersion)
+      git push
+    displayName: 'commit new package revision'

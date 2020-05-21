@@ -12,5 +12,5 @@ steps:
       python -m pip install -r requirements.txt
       git config --global user.email "support@proofdock.io"
       git config --global user.name "proofdock-support"
-      git remote set-url origin https://proofdock-support:$(GITHUB_TOKEN)@github.com/proofdock/chaos-dock.git
+      git remote set-url origin https://proofdock-support:$(GITHUB_TOKEN)@github.com/proofdock/chaos-kit.git
     displayName: 'Prepare deployment'

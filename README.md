@@ -28,7 +28,31 @@ To use the features ...
 
 ## Configuration
 
-This extension uses ...
+The [Proofdock Chaos Kit][proofdock_docs_chaoskit] uses the [Chaos Toolkit][chaostoolkit] under the hood. The Proofdock Chaos Kit expects that you have an API url and a proper API token that allows you to authenticate against the Proofdock chaos API.
+
+Configuration values for the Proofdock Chaos Kit can come from several sources:
+
+* Settings file, e.g.
+  ```yaml
+  # located in ~/.chaostoolkit/settings.yaml
+  auths:
+    chaosapi.proofdock.io:
+      type: bearer
+      value: my_api_token_here
+  controls:
+    proofdock:
+      provider:
+        arguments:
+          api_url: https://chaosapi.proofdock.io/
+        module: pdchaoskit.controls
+        type: python
+  ```
+* Environment variables:
+  * ``PROOFDOCK_API_TOKEN`` - override the token from your settings file. 
+
+The Proofdock Chaos Kit will first try to load the configuration from the settings file. If no configuration is provided, it will try to load it from the environment variables. Please check the [usage command][proofdock_chaoskit_usage] to see how to set up the settings file with the Proofdock Chaos Kit.
+
+[proofdock_chaoskit_usage]:[https://docs.proofdock.io/chaos/cli/configure/]
 
 ### Putting it all together
 
@@ -83,4 +107,5 @@ $ pytest
 [chaostoolkit]: https://chaostoolkit.org
 [proofdock]: https://proofdock.io/
 [proofdock_docs]: https://docs.proofdock.io/
+[proofdock_docs_chaoskit]: https://docs.proofdock.io/chaos/cli
 [proofdock_support]: https://github.com/proofdock/chaos-support/

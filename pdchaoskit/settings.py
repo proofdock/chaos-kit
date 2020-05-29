@@ -7,8 +7,7 @@ DEFAULT_PROOFDOCK_API_URL = 'https://chaosapi.proofdock.io/'
 
 
 def get_api_url(settings: Settings) -> str:
-    """
-    Get the Proofdock API endpoint.
+    """Get the Proofdock API endpoint.
     """
     return _get_control(settings) \
         .get('provider', {}).get('arguments', {}) \
@@ -17,12 +16,9 @@ def get_api_url(settings: Settings) -> str:
 
 def get_api_token(settings: Settings, url: str = DEFAULT_PROOFDOCK_API_URL) \
         -> str:
+    """Get the token for the Proofdock API endpoint.
     """
-    Get the token for the Proofdock endpoint.
-    """
-    return settings.get('auths', {}).\
-        get(urlparse(url).netloc, {}).\
-        get('value', '')
+    return settings.get('auths', {}).get(urlparse(url).netloc, {}).get('value', '')
 
 
 def set_settings(settings: Settings, api_url: str, token: str):
@@ -45,9 +41,7 @@ def set_settings(settings: Settings, api_url: str, token: str):
 
 
 def update_settings_from_env(settings: Settings):
-    api_url = _get_variable_or_default(
-        'PROOFDOCK_API_URL',
-        get_api_url(settings)) or DEFAULT_PROOFDOCK_API_URL
+    api_url = _get_variable_or_default('PROOFDOCK_API_URL', get_api_url(settings)) or DEFAULT_PROOFDOCK_API_URL
     api_token = _get_variable_or_default('PROOFDOCK_API_TOKEN', None)
     return set_settings(settings, api_url, api_token)
 
@@ -59,7 +53,7 @@ def ensure_settings_are_valid(settings: Settings):
     if not _get_control(settings):
         raise Exception(
             '\n'
-            'Proofdock plugin is not configured.')
+            'Proofdock Chaos Kit is not configured.')
 
     api_url = get_api_url(settings)
     if not api_url:

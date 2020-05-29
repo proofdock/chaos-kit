@@ -6,8 +6,7 @@ from requests import Session
 from pdchaoskit.api import endpoints, get_error_message
 
 
-def push_execution(settings: Dict,
-                   session: Session):
+def push_execution(settings: Dict, session: Session):
     body = request_body_as_jsonstring(settings)
     path = settings.get('run_context')['path']
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import io
 import json
+from typing import Dict, Any
 from urllib.parse import urlparse
 
 import click
@@ -19,8 +20,8 @@ from tabulate import tabulate
 from .api.experiments import get_experiments
 from .api.session import client_session
 from .context import set_run_context
-from .settings import ensure_settings_are_valid, set_settings, get_api_url, \
-    update_settings_from_env, DEFAULT_PROOFDOCK_API_URL
+from .settings import (ensure_settings_are_valid, set_settings, get_api_url, update_settings_from_env,
+                       DEFAULT_PROOFDOCK_API_URL)
 
 
 @cli.command()
@@ -47,19 +48,7 @@ def run(ctx: click.Context,
         ) -> Journal:
     """Run the experiment loaded from SOURCE - must be a local file."""
 
-    # load settings from file
-    # get loaded settings here to make sure that object is created
-    # if no settings file was provided
-    # TODO: submit bug for chaostoolkit
-    settings = load_settings(ctx.obj["settings_path"]) or get_loaded_settings()
-    # check if Proofdock extension is configured
-    try:
-        settings = update_settings_from_env(settings)
-        ensure_settings_are_valid(settings)
-    except Exception as x:
-        logger.error(str(x))
-        logger.debug(x)
-        ctx.exit(1)
+    settings = __load_settings(ctx)
 
     try:
         set_run_context(ctx, settings)
@@ -95,8 +84,7 @@ def run(ctx: click.Context,
     has_failed = journal["status"] != "completed"
 
     with io.open(journal_path, "w") as r:
-        json.dump(
-            journal, r, indent=2, ensure_ascii=False, default=encoder)
+        json.dump(journal, r, indent=2, ensure_ascii=False, default=encoder)
 
     if journal["status"] == "completed":
         notify(settings, RunFlowEvent.RunCompleted, journal)
@@ -112,7 +100,7 @@ def run(ctx: click.Context,
     return journal
 
 
-@cli.command(help="Configure Proofdock plugin")
+@cli.command(help="Configure Proofdock chaos-kit")
 @click.option('--token',
               help="Token value",
               required=False, type=str)
@@ -152,16 +140,7 @@ def experiment(config):
 @experiment.command(help="List all experiments in your project")
 @click.pass_context
 def list(ctx: click.Context):
-    settings_path = ctx.obj["settings_path"]
-    settings = load_settings(settings_path) or get_loaded_settings()
-
-    try:
-        settings = update_settings_from_env(settings)
-        ensure_settings_are_valid(settings)
-    except Exception as x:
-        logger.error(str(x))
-        logger.debug(x)
-        ctx.exit(1)
+    settings = __load_settings(ctx)
 
     try:
         with client_session(verify_tls=False, settings=settings) as session:
@@ -180,4 +159,21 @@ def list(ctx: click.Context):
     except Exception as ex:
         logger.error("Unable to list experiments. %s", str(ex))
         logger.debug(ex)
+        ctx.exit(1)
+
+
+###################################################
+# PRIVATE HELPERS
+###################################################
+def __load_settings(ctx: click.Context) -> Dict[str, Any]:
+    settings_path = ctx.obj["settings_path"]
+    settings = load_settings(settings_path) or get_loaded_settings()
+
+    try:
+        settings = update_settings_from_env(settings)
+        ensure_settings_are_valid(settings)
+        return settings
+    except Exception as x:
+        logger.error(str(x))
+        logger.debug(x)
         ctx.exit(1)

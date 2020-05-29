@@ -1,3 +1,4 @@
+from chaoslib.exceptions import FailedActivity
 from chaoslib.settings import get_loaded_settings
 from logzero import logger
 
@@ -6,6 +7,7 @@ from pdchaoskit.api.session import client_session
 
 
 def get_content(id: str) -> str:
+    """Get a script's content"""
     settings = get_loaded_settings()
 
     try:
@@ -13,5 +15,7 @@ def get_content(id: str) -> str:
             return get_script_content(session, id)
 
     except Exception as ex:
-        logger.error("Unable to fetch script content. Reason: %s", str(ex))
+        msg = "Unable to fetch script content. Reason: {}".format(str(ex))
+        logger.error(msg)
         logger.debug(ex)
+        raise FailedActivity(msg)

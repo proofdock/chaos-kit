@@ -1,4 +1,4 @@
-__version__ = '0.0.5-dev1'
+__version__ = '1.0.0-dev0'
 
 from pdchaoskit.vcs import (GitInformationStrategy, PerforceInformationStrategy,
                             VcsInformationStrategy)

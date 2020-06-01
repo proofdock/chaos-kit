@@ -24,13 +24,13 @@ $ pip install -U proofdock-chaos-kit
 
 ## Usage
 
-To use the features ...
+The Proofdock Chaos CLI extends the [Chaos Toolkit][chaostoolkit]. The several Proofdock Chaos CLI commands are explained in detail at the [Proofdock documentation homepage][proofdock_docs_chaoscli].
 
 ## Configuration
 
-The [Proofdock Chaos Kit][proofdock_docs_chaoskit] uses the [Chaos Toolkit][chaostoolkit] under the hood. The Proofdock Chaos Kit expects that you have an API url and a proper API token that allows you to authenticate against the Proofdock chaos API.
+The Proofdock Chaos CLI expects that you have an API url and a proper API token that allows you to authenticate against the Proofdock cloud.
 
-Configuration values for the Proofdock Chaos Kit can come from several sources:
+Configuration values for the Proofdock Chaos CLI can come from several sources:
 
 * Settings file, e.g.
   ```yaml
@@ -38,7 +38,7 @@ Configuration values for the Proofdock Chaos Kit can come from several sources:
   auths:
     chaosapi.proofdock.io:
       type: bearer
-      value: my_api_token_here
+      value: <your_api_token_here>
   controls:
     proofdock:
       provider:
@@ -47,16 +47,37 @@ Configuration values for the Proofdock Chaos Kit can come from several sources:
         module: pdchaoskit.controls
         type: python
   ```
-* Environment variables:
-  * ``PROOFDOCK_API_TOKEN`` - override the token from your settings file. 
+* You may override the settings file with the environment variable ``PROOFDOCK_API_TOKEN`` which overrides the token from your settings file.
 
-The Proofdock Chaos Kit will first try to load the configuration from the settings file. If no configuration is provided, it will try to load it from the environment variables. Please check the [usage command][proofdock_chaoskit_usage] to see how to set up the settings file with the Proofdock Chaos Kit.
-
-[proofdock_chaoskit_usage]:[https://docs.proofdock.io/chaos/cli/configure/]
+The Proofdock Chaos CLI will first try to load the configuration from the settings file. If no configuration is provided, it will try to load it from the environment variables. Please check the [usage command][proofdock_chaoskit_configure] to see how to set up the settings file with the Proofdock Chaos CLI.
 
 ### Putting it all together
 
-Here is a full example for
+Here is a full example to configure the Chaos CLI, run an experiment and list those experiments.
+
+1. Configure the settings file with the API token that you have gathered from the Proofdock Chaos Engineering Platform.
+   ```bash
+   chaos configure --token <your-api-token>
+   ```
+   More configuration options are vailable. For more options check out the CLI ``--help`` command itself or have a look at the [docs][proofdock_chaoskit_configure].
+
+
+2. Run an experiment and send its results to the Proofdock cloud.
+    ```bash
+    chaos run /path/to/experiment.yml
+    ```
+   You may use several options like providing descriptions to your experiment run. For more options check out the CLI ``--help`` command itself or have a look at the [docs][proofdock_chaoskit_run].
+
+
+3. Retrieve and list experiments from the Proofdock cloud.
+    ```bash
+    chaos experiment list
+    ```
+    For more options check out the CLI ``--help`` command itself or have a look at the [docs][proofdock_chaoskit_list].
+
+
+You have now configured your Chaos CLI and successfully run an experiment.
+
 
 ## Contribute
 
@@ -105,7 +126,10 @@ $ pytest
 
 [chaosengineeringplatform]: https://proofdock.io
 [chaostoolkit]: https://chaostoolkit.org
+[proofdock_chaoskit_configure]:[https://docs.proofdock.io/chaos/cli/configure/]
+[proofdock_chaoskit_run]:[https://docs.proofdock.io/chaos/cli/run/]
+[proofdock_chaoskit_list]:[https://docs.proofdock.io/chaos/cli/list/]
 [proofdock]: https://proofdock.io/
 [proofdock_docs]: https://docs.proofdock.io/
-[proofdock_docs_chaoskit]: https://docs.proofdock.io/chaos/cli
+[proofdock_docs_chaoscli]: https://docs.proofdock.io/chaos/cli
 [proofdock_support]: https://github.com/proofdock/chaos-support/

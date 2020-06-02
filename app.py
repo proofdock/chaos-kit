@@ -13,11 +13,11 @@ def _get_variable_or_throw(var: str):
 
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
-    orginal_argv = sys.argv.copy()
+    original_argv = sys.argv.copy()
 
     # Custom stuff
-    sys.argv = orginal_argv.copy()
+    sys.argv = original_argv.copy()
     sys.argv.extend([
-        "run", "chaosexp/experiment.yml"
+        "run", "chaosexp/getting-started.yml"
     ])
     result = cli(standalone_mode=False)

@@ -121,10 +121,20 @@ class GitInformationStrategy(VcsInformationStrategy):
         return result
 
     def get_repository_uri(self) -> str:
-        url = subprocess.check_output(
-            ['git', 'config', '--get', 'remote.origin.url']
-        ).decode('utf-8').strip()
-        return self.norm_uri(url)
+        """
+        Return remote origin url of git repository.
+
+        Not all repositories have to have remote origin defined. In such case return None.
+        """
+        try:
+            url = subprocess.check_output(
+                ['git', 'config', '--get', 'remote.origin.url']
+            ).decode('utf-8').strip()
+            return self.norm_uri(url)
+        except subprocess.CalledProcessError as error:
+            # no remote origin defined, log and continue
+            logger.debug('Unable to get remote origin {}'.format(str(error)))
+            return None
 
     @staticmethod
     def norm_uri(uri: str) -> str:

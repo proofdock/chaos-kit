@@ -38,6 +38,13 @@ class TestGitInformationStrategy:
             assert git_vcs.get_repository_uri(
             ) == 'https://dev.azure.com/proofdockio/chaos/_git/core'
 
+    def test_get_repository_uri_no_remote_origin(self):
+        git_vcs = GitInformationStrategy()
+        with mock.patch.object(subprocess, 'check_output') as mocked_subprocess:
+            mocked_subprocess.side_effect = subprocess.CalledProcessError(
+                1, ['git', 'config', '--get', 'remote.origin1.url'])
+            assert git_vcs.get_repository_uri() is None
+
     def test_get_repository_uri_with_credentials(self):
         git_vcs = GitInformationStrategy()
         with mock.patch.object(subprocess, 'check_output') as mocked_subprocess:

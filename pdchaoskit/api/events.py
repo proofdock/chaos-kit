@@ -10,12 +10,10 @@ def publish_event(name, context, state, settings, session: Session):
     if not id:
         raise Exception("Experiment run identifier cannot be empty.")
     data = json.dumps({
-        'source': 'chaos.execution',
         'name': name,
-        'execution_id': id,
         'state': state,
         'context': context
     })
-    response = session.post(endpoints.events(), data=data, timeout=30)
+    response = session.post(endpoints.events(id), data=data, timeout=30)
     if not response.ok:
         raise Exception(get_error_message(response))

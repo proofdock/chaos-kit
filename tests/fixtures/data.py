@@ -54,7 +54,8 @@ def provide_experiment():
 def provide_settings():
     return {
         "run_context": {
-            "no_upload": False
+            "no_upload": False,
+            'execution_id': '1234'
         }
     }
 

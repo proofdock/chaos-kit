@@ -3,23 +3,23 @@ from chaoslib.settings import get_loaded_settings
 from pdchaoskit.settings import get_api_url
 
 
-def base():
+def base() -> str:
     return get_api_url(get_loaded_settings())
 
 
-def events():
-    return _get_url(base(), 'v1/events')
+def events(execution_id: str) -> str:
+    return _get_url(base(), 'v1/executions/{}/events'.format(execution_id))
 
 
-def executions():
+def executions() -> str:
     return _get_url(base(), 'v1/executions')
 
 
-def experiment():
+def experiment() -> str:
     return _get_url(base(), 'v1/experiments')
 
 
-def scripts():
+def scripts() -> str:
     return _get_url(base(), 'v1/scripts')
 
 

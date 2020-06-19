@@ -6,8 +6,7 @@ from chaoslib.settings import get_loaded_settings
 from chaoslib.types import (Activity, Configuration, Experiment, Hypothesis,
                             Journal, Run, Secrets, Settings)
 from logzero import logger
-
-from pdchaoskit.settings import add_to_run_context
+from pdchaoskit.settings import add_to_run_context, no_upload
 
 from .api.events import publish_event
 from .api.executions import push_execution
@@ -51,7 +50,7 @@ def cleanup_control():
 
     settings = get_loaded_settings()
 
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
 
     exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -76,7 +75,7 @@ def after_loading_experiment_control(context: str, experiment: Experiment,
     pass
 
 
-def before_experiment_control(experiment: Experiment,
+def before_experiment_control(context: Experiment,
                               configuration: Configuration = None,
                               secrets: Secrets = None,
                               settings: Settings = None, **kwargs):
@@ -87,7 +86,7 @@ def before_experiment_control(experiment: Experiment,
     configuration and secrets have been loaded.
     """
 
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
 
     try:
@@ -104,7 +103,7 @@ def before_experiment_control(experiment: Experiment,
         raise InterruptExecution()
 
     send_experiment_event(
-        event='before-experiment', context=None, state=None,
+        event='before-experiment', context=context, state=None,
         settings=settings)
 
 
@@ -122,7 +121,7 @@ def after_experiment_control(context: Experiment, state: Journal,
     for more information about the journal.
     """
 
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
     send_experiment_event(
         event='after-experiment', context=None, state=state,
@@ -139,7 +138,11 @@ def before_hypothesis_control(context: Hypothesis,
     Called by the Chaos Toolkit before the steady-state hypothesis is
     applied.
     """
-    pass
+    if no_upload(settings):
+        return
+    send_experiment_event(
+        event='before-hypothesis', context=context, state=None,
+        settings=settings)
 
 
 def after_hypothesis_control(context: Hypothesis, state: Dict[str, Any],
@@ -154,7 +157,7 @@ def after_hypothesis_control(context: Hypothesis, state: Dict[str, Any],
     https://docs.chaostoolkit.org/reference/api/journal/#steady-state-outcomes
     for the description of that state.
     """
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
     send_experiment_event(
         event='after-hypothesis', context=context, state=state,
@@ -171,7 +174,11 @@ def before_method_control(context: Experiment,
     Called by the Chaos Toolkit before the activities of the method are
     applied.
     """
-    pass
+    if no_upload(settings):
+        return
+    send_experiment_event(
+        event='before-method', context=context, state=None,
+        settings=settings)
 
 
 def after_method_control(context: Experiment, state: List[Run],
@@ -186,7 +193,7 @@ def after_method_control(context: Experiment, state: List[Run],
     https://docs.chaostoolkit.org/reference/api/journal/#run for more
     information.
     """
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
     send_experiment_event(
         event='after-method', context=context, state=state,
@@ -203,7 +210,11 @@ def before_rollback_control(context: Experiment,
     Called by the Chaos Toolkit before the actions of the rollback are
     applied.
     """
-    pass
+    if no_upload(settings):
+        return
+    send_experiment_event(
+        event='before-rollback', context=context, state=None,
+        settings=settings)
 
 
 def after_rollback_control(context: Experiment, state: List[Run],
@@ -218,7 +229,7 @@ def after_rollback_control(context: Experiment, state: List[Run],
     https://docs.chaostoolkit.org/reference/api/journal/#run for more
     information.
     """
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
     send_experiment_event(
         event='after-rollback', context=context, state=state,
@@ -234,7 +245,11 @@ def before_activity_control(context: Activity,
 
     Called by the Chaos Toolkit before the activity is applied.
     """
-    pass
+    if no_upload(settings):
+        return
+    send_experiment_event(
+        event='before-activity', context=context, state=None,
+        settings=settings)
 
 
 def after_activity_control(context: Activity, state: Run,
@@ -249,7 +264,7 @@ def after_activity_control(context: Activity, state: Run,
     https://docs.chaostoolkit.org/reference/api/journal/#run for more
     information.
     """
-    if settings['run_context']['no_upload']:
+    if no_upload(settings):
         return
     send_experiment_event(
         event='after-activity', context=context, state=state,

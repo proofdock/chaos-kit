@@ -1,7 +1,6 @@
 from chaoslib.exceptions import FailedActivity
 from chaoslib.settings import get_loaded_settings
 from logzero import logger
-
 from pdchaoskit.api.scripts import get_script_content
 from pdchaoskit.api.session import client_session
 

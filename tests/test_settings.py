@@ -1,7 +1,7 @@
 import pytest
 
 from pdchaoskit.settings import set_settings, get_api_url, get_api_token, \
-    update_settings_from_env, ensure_settings_are_valid, add_to_run_context
+    update_settings_from_env, ensure_settings_are_valid, add_to_run_context, no_upload
 
 
 def test_set_settings():
@@ -301,3 +301,25 @@ def test_add_to_run_context():
 
     # assert
     assert settings.get('run_context')['key'] == 'value'
+
+
+def test_no_upload_enabled():
+    # arrange
+    settings = {
+        'run_context': {
+            'no_upload': True
+        }
+    }
+
+    # act & assert
+    assert no_upload(settings) is True
+
+
+def test_no_upload_disabled():
+    # arrange
+    settings = {
+        'run_context': { }
+    }
+
+    # act & assert
+    assert no_upload(settings) is False

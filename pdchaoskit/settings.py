@@ -90,6 +90,10 @@ def add_to_run_context(settings, key, value):
     return settings
 
 
+def no_upload(settings):
+    return settings.get('run_context', {}).get('no_upload', False)
+
+
 def _set_auth(settings: Settings, api_url: str, token: str):
     if 'auths' not in settings:
         settings['auths'] = {}

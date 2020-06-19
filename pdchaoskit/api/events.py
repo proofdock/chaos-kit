@@ -1,8 +1,8 @@
 import json
-
-from requests import Session
+from datetime import datetime
 
 from pdchaoskit.api import endpoints, get_error_message
+from requests import Session
 
 
 def publish_event(name, context, state, settings, session: Session):
@@ -12,7 +12,8 @@ def publish_event(name, context, state, settings, session: Session):
     data = json.dumps({
         'name': name,
         'state': state,
-        'context': context
+        'context': context,
+        'timestamp': datetime.utcnow().isoformat()
     })
     response = session.post(endpoints.events(id), data=data, timeout=30)
     if not response.ok:

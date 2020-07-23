@@ -20,17 +20,17 @@ def test_configure(load_settings, save_settings):
     save_settings.assert_called_once_with(ANY, '/home/settings.yaml')
     (args, kwargs) = save_settings.call_args
     assert args[0] == {
-       'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://chaosapi.proofdock.io/'
-                   }
-               }
-           }
-       }
+        'controls': {
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://chaosapi.proofdock.io/'
+                    }
+                }
+            }
+        }
     }
     assert args[1] == '/home/settings.yaml'
 
@@ -59,15 +59,15 @@ def test_configure_with_token(load_settings, save_settings):
             }
         },
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://chaosapi.proofdock.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://chaosapi.proofdock.io/'
+                    }
+                }
+            }
         }
     }
     assert args[1] == '/home/settings.yaml'
@@ -85,15 +85,15 @@ def test_configure_renew_token(load_settings, save_settings):
             }
         },
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://chaosapi.proofdock.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://chaosapi.proofdock.io/'
+                    }
+                }
+            }
         }
     }
     runner = CliRunner()
@@ -115,15 +115,15 @@ def test_configure_renew_token(load_settings, save_settings):
             }
         },
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://chaosapi.proofdock.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://chaosapi.proofdock.io/'
+                    }
+                }
+            }
         }
     }
     assert args[1] == '/home/settings.yaml'
@@ -147,15 +147,15 @@ def test_configure_default_api_url(load_settings, save_settings):
     (args, kwargs) = save_settings.call_args
     assert args[0] == {
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://new.api.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://new.api.io/'
+                    }
+                }
+            }
         }
     }
     assert args[1] == '/home/settings.yaml'
@@ -167,15 +167,15 @@ def test_configure_override_default_api_url(load_settings, save_settings):
     # arrange
     load_settings.return_value = {
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://chaosapi.proofdock.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://chaosapi.proofdock.io/'
+                    }
+                }
+            }
         }
     }
     runner = CliRunner()
@@ -191,15 +191,15 @@ def test_configure_override_default_api_url(load_settings, save_settings):
     (args, kwargs) = save_settings.call_args
     assert args[0] == {
         'controls': {
-           'proofdock': {
-               'provider': {
-                   'type': 'python',
-                   'module': 'pdchaoskit.controls',
-                   'arguments': {
-                       'api_url': 'https://new.api.io/'
-                   }
-               }
-           }
+            'proofdock': {
+                'provider': {
+                    'type': 'python',
+                    'module': 'pdchaoskit.controls',
+                    'arguments': {
+                        'api_url': 'https://new.api.io/'
+                    }
+                }
+            }
         }
     }
     assert args[1] == '/home/settings.yaml'

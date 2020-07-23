@@ -31,7 +31,7 @@ def test_set_settings():
     assert provider.get('module') == 'pdchaoskit.controls'
     assert provider.get('type') == 'python'
     assert provider.get('arguments').get('api_url') == \
-        'https://chaosapi.proofdock.io'
+           'https://chaosapi.proofdock.io'
     assert auth is not None
     assert auth.get('type') == 'bearer'
     assert auth.get('value') == api_token
@@ -55,7 +55,7 @@ def test_set_settings_without_token():
     assert provider.get('module') == 'pdchaoskit.controls'
     assert provider.get('type') == 'python'
     assert provider.get('arguments').get('api_url') == \
-        'https://chaosapi.proofdock.io'
+           'https://chaosapi.proofdock.io'
     assert auth is None
 
 
@@ -97,7 +97,7 @@ def test_get_api_url_from_env(monkeypatch):
     update_settings_from_env(settings)
 
     # assert
-    arguments = settings['controls']['proofdock']['provider']\
+    arguments = settings['controls']['proofdock']['provider'] \
         .get('arguments', None)
     assert arguments is not None
     assert arguments.get('api_url') == "https://api.from.env.io"
@@ -126,7 +126,7 @@ def test_override_api_url_from_env(monkeypatch):
     update_settings_from_env(settings)
 
     # assert
-    arguments = settings['controls']['proofdock']['provider']\
+    arguments = settings['controls']['proofdock']['provider'] \
         .get('arguments', None)
     assert arguments is not None
     assert arguments.get('api_url') == "https://api.from.env.io"
@@ -169,7 +169,7 @@ def test_set_api_token_from_env(monkeypatch):
 
     # assert
     assert settings['auths']['chaosapi.proofdock.io']['value'] == \
-        "my.token.from.env"
+           "my.token.from.env"
     assert get_api_token(settings) == "my.token.from.env"
 
 
@@ -201,7 +201,7 @@ def test_override_api_token_from_env(monkeypatch):
 
     # assert
     assert settings['auths']['chaosapi.proofdock.io']['value'] == \
-        "my.token.from.env"
+           "my.token.from.env"
     assert get_api_token(settings) == "my.token.from.env"
 
 
@@ -318,7 +318,7 @@ def test_no_upload_enabled():
 def test_no_upload_disabled():
     # arrange
     settings = {
-        'run_context': { }
+        'run_context': {}
     }
 
     # act & assert

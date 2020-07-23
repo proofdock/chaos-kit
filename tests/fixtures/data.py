@@ -175,7 +175,8 @@ def provide_journal():
                 "output": {
                     "resources": [
                         {
-                            "id": "/subscriptions/sub/resourceGroups/rg_web_host/providers/Microsoft.Compute/virtualMachines/test-machine",
+                            "id": "/subscriptions/sub/resourceGroups/rg_web_host/providers/Microsoft.Compute"
+                                  "/virtualMachines/test-machine",
                             "sku": None,
                             "name": "test-machine",
                             "type": "microsoft.compute/virtualmachines",

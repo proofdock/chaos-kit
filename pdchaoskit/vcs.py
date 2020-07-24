@@ -187,3 +187,13 @@ class PerforceInformationStrategy(VcsInformationStrategy):
 
     def get_repository_id(self) -> str:
         raise NotImplementedError
+
+
+def vcs_information_factory() -> VcsInformationStrategy:
+    if GitInformationStrategy().is_available():
+        return GitInformationStrategy()
+
+    if PerforceInformationStrategy().is_available():
+        return PerforceInformationStrategy()
+
+    raise NotImplementedError()

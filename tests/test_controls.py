@@ -18,7 +18,7 @@ def test_before_experiment_control(push_execution, session):
         context=experiment, configuration={},
         secrets={}, settings=settings)
 
-    assert settings.get('run_context').get('execution_id') == "12345"
+    assert settings.get('run_context').get('execution').get('id') == "12345"
     push_execution.assert_called_once_with(settings, ANY)
 
 

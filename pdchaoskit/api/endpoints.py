@@ -7,6 +7,14 @@ def base() -> str:
     return get_api_url(get_loaded_settings())
 
 
+def alerts() -> str:
+    return _get_url(base(), 'v1/monitor/alerts')
+
+
+def alert_rule(alert_rule: str) -> str:
+    return _get_url(base(), 'v1/monitor/alertrules/{}'.format(alert_rule))
+
+
 def events(execution_id: str) -> str:
     return _get_url(base(), 'v1/executions/{}/events'.format(execution_id))
 

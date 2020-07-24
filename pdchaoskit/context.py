@@ -3,8 +3,8 @@ import os
 import click
 from chaoslib.exceptions import InvalidSource
 from logzero import logger
+from pdchaoskit.vcs import vcs_information_factory
 
-from pdchaoskit import vcs_information_factory
 from .settings import add_to_run_context
 
 

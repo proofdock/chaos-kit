@@ -6,7 +6,7 @@ from requests import Session
 
 
 def publish_event(name, context, state, settings, session: Session):
-    id = settings.get('run_context').get('execution_id', None)
+    id = settings.get('run_context').get('execution').get('id', None)
     if not id:
         raise Exception("Experiment run identifier cannot be empty.")
     data = json.dumps({

@@ -4,7 +4,7 @@ from unittest import mock
 
 import pytest
 
-from pdchaoskit import GitInformationStrategy
+from pdchaoskit.vcs import GitInformationStrategy
 
 
 class TestGitInformationStrategy:

@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def provide_experiment():
     return {
         "version": "1.0.0",
@@ -55,7 +58,10 @@ def provide_settings():
     return {
         "run_context": {
             "no_upload": False,
-            'execution_id': '1234'
+            'execution': {
+                'id': '1234',
+                'creation_time': datetime.utcnow().isoformat()
+            }
         }
     }
 

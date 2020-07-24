@@ -93,7 +93,11 @@ def before_experiment_control(context: Experiment,
         logger.info('Creating experiment run in Proofdock...')
         with client_session(verify_tls=False, settings=settings) as session:
             execution = push_execution(settings, session)
-        add_to_run_context(settings, 'execution_id', execution.get('id'))
+        execution_ctx = {
+            'id': execution.get('id'),
+            'creation_time': execution.get('creation_time')
+        }
+        add_to_run_context(settings, 'execution', execution_ctx)
         logger.info("New experiment run with id: '{}' created.".format(
             execution.get('id')))
     except Exception as ex:

@@ -7,16 +7,21 @@ from logzero import logger
 from pdchaoskit.api.alerts import get_alert_rule, get_alerts
 from pdchaoskit.api.session import client_session
 
-__all__ = [
-    "was_alert_fired"
-]
+__all__ = ["was_alert_fired"]
 
 
 def was_alert_fired(
         alert_rule: str,
         configuration: Configuration = None,
         secrets: Secrets = None) -> bool:
+    """
+    Check if an alert was fired during an experiment run.
 
+    Parameters
+    ----------
+    alert_rule : str, required
+        Name of the alert rule for which check will be performed.
+    """
     settings = get_loaded_settings()
     with client_session(verify_tls=False, settings=settings) as session:
         rule = get_alert_rule(alert_rule, session)

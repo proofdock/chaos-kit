@@ -5,7 +5,7 @@ from chaoslib.discovery.discover import (discover_probes,
 from chaoslib.types import DiscoveredActivities, Discovery
 from logzero import logger
 
-__version__ = '1.0.2-dev2'
+__version__ = '1.0.2'
 
 
 def discover(discover_system: bool = True) -> Discovery:

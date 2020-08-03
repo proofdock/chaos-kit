@@ -40,7 +40,8 @@ author_email = 'hello@proofdock.io'
 license = 'Apache License Version 2.0'
 packages = [
     'pdchaoskit',
-    'pdchaoskit.api'
+    'pdchaoskit.api',
+    'pdchaoskit.alert'
 ]
 
 classifiers = [

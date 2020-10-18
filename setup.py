@@ -41,7 +41,8 @@ license = 'Apache License Version 2.0'
 packages = [
     'pdchaoskit',
     'pdchaoskit.api',
-    'pdchaoskit.alert'
+    'pdchaoskit.alert',
+    'pdchaoskit.application'
 ]
 
 classifiers = [

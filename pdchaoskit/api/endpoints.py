@@ -15,6 +15,14 @@ def alert_rule(alert_rule: str) -> str:
     return _get_url(base(), 'v1/monitor/alertrules/{}'.format(alert_rule))
 
 
+def applications() -> str:
+    return _get_url(base(), 'v1/applications')
+
+
+def attacks() -> str:
+    return _get_url(base(), 'v1/attacks')
+
+
 def events(execution_id: str) -> str:
     return _get_url(base(), 'v1/executions/{}/events'.format(execution_id))
 

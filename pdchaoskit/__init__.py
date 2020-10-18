@@ -1,6 +1,6 @@
 from typing import List
 
-from chaoslib.discovery.discover import (discover_probes,
+from chaoslib.discovery.discover import (discover_probes, discover_actions,
                                          initialize_discovery_result)
 from chaoslib.types import DiscoveredActivities, Discovery
 from logzero import logger
@@ -29,6 +29,8 @@ def load_exported_activities() -> List[DiscoveredActivities]:
     Extract metadata from actions and probes exposed by this extension.
     """
     activities = []
-    activities.extend(discover_probes("pdchaoskit.probes"))
+    activities.extend(discover_probes("pdchaoskit.alert.probes"))
+
+    activities.extend(discover_actions("pdchaoskit.app.actions"))
 
     return activities

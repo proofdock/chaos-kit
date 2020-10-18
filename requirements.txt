@@ -1,5 +1,5 @@
-chaostoolkit-lib~=1.9
-chaostoolkit~=1.4.2
+chaostoolkit-lib~=1.15.0
+chaostoolkit~=1.7.0
 logzero==1.5.0
 click~=7.0
 tabulate~=0.8.6

@@ -63,16 +63,7 @@ and extends an existing `chaos run` command with new options.
 You use the `chaos run` command to run an experiment and upload its results to the Proofdock cloud.
 
 ``` bash
-chaos run [OPTIONS] SOURCE
-```
-
-**Options**
-``` bash
-  --description TEXT  (new)  Additional description of the experiment run.
-  --journal-path TEXT        Path where to save the journal from the execution.
-  --dry                      Run the experiment without executing activities.
-  --no-upload         (new)  Do not upload the experiment and results after running.
-  --no-validation            Do not validate the experiment before running.
+chaos run [OPTIONS] experiment.json
 ```
 
 ### Configure
@@ -85,7 +76,6 @@ chaos configure --token <API token>
 **Options**
 ``` bash
   --token TEXT            Token value
-  --default-api-url TEXT  Default API
 ```
 
 ### List

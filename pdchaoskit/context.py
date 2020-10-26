@@ -3,30 +3,36 @@ import os
 import click
 from chaoslib.exceptions import InvalidSource
 from logzero import logger
+
 from pdchaoskit.vcs import vcs_information_factory
 
-from .settings import add_to_run_context
+from .settings import (add_to_run_context, ensure_settings_are_valid,
+                       update_settings_from_env)
 
 
-def set_run_context(context, settings):
+def set_run_context(settings):
 
-    params = context.params
+    try:
+        update_settings_from_env(settings)
+        ensure_settings_are_valid(settings)
+    except Exception as x:
+        logger.debug(x)
+        logger.error("Your experiment results will not be uploaded to the cloud. " + str(x))
+        raise Exception(str(x))
+
+    params = click.get_current_context().params
 
     # configure upload options
-    no_upload = params.get('no_upload')
-    add_to_run_context(settings, 'no_upload', no_upload)
-    if not no_upload:
-        try:
-            vcs_info = vcs_information_factory().as_dict(params.get('source'))
-            settings = add_to_run_context(settings, 'vcs', vcs_info)
-        except Exception as ex:
-            logger.debug(ex)
-            raise Exception(
-                "The command 'run' is disabled. Run an experiment "
-                "within your repository or use '--no-upload' switch.")
-    else:
+    try:
+        vcs_info = vcs_information_factory().as_dict(params.get('source'))
+        settings = add_to_run_context(settings, 'vcs', vcs_info)
+        add_to_run_context(settings, 'no_upload', False)
+    except Exception as ex:
+        logger.debug(ex)
         logger.warning(
-            "Your experiment results will not be uploaded to the cloud.")
+            "Your experiment results will not be uploaded to the cloud. "
+            "Run an experiment within your repository.")
+        add_to_run_context(settings, 'no_upload', True)
 
     add_to_run_context(settings, 'description', params.get('description'))
 

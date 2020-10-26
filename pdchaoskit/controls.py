@@ -6,11 +6,13 @@ from chaoslib.settings import get_loaded_settings
 from chaoslib.types import (Activity, Configuration, Experiment, Hypothesis,
                             Journal, Run, Secrets, Settings)
 from logzero import logger
+
 from pdchaoskit.settings import add_to_run_context, no_upload
 
 from .api.events import publish_event
 from .api.executions import push_execution
 from .api.session import client_session
+from .context import set_run_context
 
 
 def send_experiment_event(event: str, context: dict, state: dict,
@@ -37,8 +39,7 @@ def configure_control(configuration: Configuration = None,
     The `settings` are only passed when the control is declared in the
     settings file of the Chaos Toolkit.
     """
-
-    pass
+    set_run_context(settings)
 
 
 def cleanup_control():
